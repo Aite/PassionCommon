@@ -94,6 +94,10 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         #if DEBUG
         let interstitial = GADInterstitial(adUnitID: mainBannerDebugAdUnitId) // test adUnitID
         #else
+        var interstitialAddUnitId = mainBannerDebugAdUnitId
+        if self.interstitialAddUnitId != nil {
+            interstitialAddUnitId = self.interstitialAddUnitId!;
+        }
         let interstitial = GADInterstitial(adUnitID: interstitialAddUnitId) // real adUnitID
         #endif
         interstitial.delegate = self
@@ -130,10 +134,10 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         //                                andDebuggable: debuggable,
         //                                andCustomMode: true)
     }
-
-    func shouldShowAds(for testId: Int?) -> Bool {
-        return !IAPManager.shared.isProductPurchased(productId: TestsViewController.allTestsProductId)
-    }
+//
+//    func shouldShowAds(for testId: Int?) -> Bool {
+//        return !IAPManager.shared.isProductPurchased(productId: TestsViewController.allTestsProductId)
+//    }
 
     @available(iOS 10.0, *)
     func presentInterstitialView(withTimer timerEnabled: Bool) {
