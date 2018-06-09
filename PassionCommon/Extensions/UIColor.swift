@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UIColor {
-    static let customRed = UIColor(red: 255/255.0, green: 126/255.0, blue: 121/255.0, alpha: 1.0)
-    static let customGreen = UIColor(red: 97/255.0, green: 209/255.0, blue: 135/255.0, alpha: 1.0)
+public extension UIColor {
+    public static let customRed = UIColor(red: 255/255.0, green: 126/255.0, blue: 121/255.0, alpha: 1.0)
+    public static let customGreen = UIColor(red: 97/255.0, green: 209/255.0, blue: 135/255.0, alpha: 1.0)
 }

@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "PassionCommon"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "a common utility classes and managers."
 
   # This description is used to generate tags and improve search results.

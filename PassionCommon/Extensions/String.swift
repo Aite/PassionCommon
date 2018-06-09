@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension String {
-    func htmlToAttributedString() -> NSAttributedString {
+public extension String {
+    public func htmlToAttributedString() -> NSAttributedString {
         if let data = self.data(using: String.Encoding.utf8) {
             let string = try? NSAttributedString(data: data,
                                                  options: [NSAttributedString.DocumentReadingOptionKey.documentType:NSAttributedString.DocumentType.html, NSAttributedString.DocumentReadingOptionKey.characterEncoding: String.Encoding.utf8.rawValue],
