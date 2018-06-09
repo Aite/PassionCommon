@@ -10,14 +10,14 @@ import Foundation
 import StoreKit
 import Firebase
 
-struct UserDefaultsKeys {
+public struct UserDefaultsKeys {
     static let APP_OPENED_COUNT = "APP_OPENED_COUNT"
 }
 
-class StoreReviewManager {
+open class StoreReviewManager {
     public static let shared = StoreReviewManager()
 
-    let Defaults = UserDefaults.standard
+    public let Defaults = UserDefaults.standard
     private var isReviewRequestedInCurrentRuntime = false
     private var appName = ""
     private var appId = ""
@@ -37,11 +37,11 @@ class StoreReviewManager {
         Defaults.set(appOpenCount, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
     }
 
-    func requestReview() {
+    open func requestReview() {
         requestReview(nil)
     }
 
-    func checkAndAskForReview(_ viewController: UIViewController?) { // call this whenever appropriate
+    open func checkAndAskForReview(_ viewController: UIViewController?) { // call this whenever appropriate
         // this will not be shown everytime. Apple has some internal logic on how to show this.
         guard let appOpenCount = Defaults.value(forKey: UserDefaultsKeys.APP_OPENED_COUNT) as? Int else {
             Defaults.set(1, forKey: UserDefaultsKeys.APP_OPENED_COUNT)
@@ -65,7 +65,7 @@ class StoreReviewManager {
 
     }
 
-    func requestReview(_ viewController: UIViewController?) {
+    private func requestReview(_ viewController: UIViewController?) {
         guard !isReviewRequestedInCurrentRuntime else {
             return
         }
@@ -90,7 +90,7 @@ class StoreReviewManager {
         }
     }
 
-    fileprivate func purchasedItemsURL() -> URL {
+    private func purchasedItemsURL() -> URL {
         let documentsDirectory = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!
         return URL(fileURLWithPath: documentsDirectory).appendingPathComponent("lastReviewTime.plist")
     }

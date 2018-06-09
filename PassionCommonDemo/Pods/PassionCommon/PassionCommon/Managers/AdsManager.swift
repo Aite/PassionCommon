@@ -9,19 +9,19 @@
 import UIKit
 import GoogleMobileAds
 
-public class AdsManager: NSObject, GADInterstitialDelegate {
+open class AdsManager: NSObject, GADInterstitialDelegate {
     public static var shared = AdsManager()
 
     private var adsTimer : Timer?
     private let mainBannerDebugAdUnitId = "ca-app-pub-3940256099942544/2934735716"
 
-    var mainBannerAddUnitId : String?
-    var interstitialAddUnitId : String?
+    public var mainBannerAddUnitId : String?
+    public var interstitialAddUnitId : String?
 
-    let interstitialAdsTimeInterval = 180.0   // 3 minutes
-    var interstitial : GADInterstitial?
-    var _mainBanner : GADBannerView?
-    var mainBanner : GADBannerView {
+    public let interstitialAdsTimeInterval = 180.0   // 3 minutes
+    public var interstitial : GADInterstitial?
+    private var _mainBanner : GADBannerView?
+    public var mainBanner : GADBannerView {
         if _mainBanner == nil {
             _mainBanner = GADBannerView(adSize: kGADAdSizeBanner)
             _mainBanner?.translatesAutoresizingMaskIntoConstraints = false
@@ -30,16 +30,16 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         return _mainBanner!
     }
 
-    override init() {
+    private override init() {
 
     }
 
-    func configure(admobAppId: String) {
+    open func initialize(admobAppId: String) {
         // Initialize the Google Mobile Ads SDK.
         GADMobileAds.configure(withApplicationID: admobAppId)
     }
 
-    func loadBanner(_ bannerView: GADBannerView, in rootViewController: UIViewController?) {
+    open func loadBanner(_ bannerView: GADBannerView, in rootViewController: UIViewController?) {
         #if DEBUG
         bannerView.adUnitID = mainBannerDebugAdUnitId // test adUnitID
         #else
@@ -54,7 +54,7 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         bannerView.load(request)
     }
 
-    func addMainBanner(to view: UIView, constraitedTo bottomLayoutGuide:UIView, in rootViewController: UIViewController?) {
+    open func addMainBanner(to view: UIView, constraitedTo bottomLayoutGuide:UIView, in rootViewController: UIViewController?) {
         if self.mainBanner.superview != nil {
             self.mainBanner.removeFromSuperview()
         }
@@ -82,15 +82,15 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         }
     }
 
-    func initializeInterstitial() {
+    open func initializeInterstitial() {
         reloadInterstitial()
     }
 
-    func reloadInterstitial() {
+    open func reloadInterstitial() {
         self.interstitial = createAndLoadInterstitial()
     }
 
-    func createAndLoadInterstitial() -> GADInterstitial {
+    open func createAndLoadInterstitial() -> GADInterstitial {
         #if DEBUG
         let interstitial = GADInterstitial(adUnitID: mainBannerDebugAdUnitId) // test adUnitID
         #else
@@ -106,7 +106,7 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         return interstitial
     }
 
-    func presentPollfishView() {
+    open func presentPollfishView() {
         return
         //        #if DEBUG
         //            let debuggable = true
@@ -140,7 +140,7 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
 //    }
 
     @available(iOS 10.0, *)
-    func presentInterstitialView(withTimer timerEnabled: Bool) {
+    open func presentInterstitialView(withTimer timerEnabled: Bool) {
         if AdsManager.shared.interstitial?.isReady ?? false {
             if let rootController = UIApplication.shared.delegate?.window??.rootViewController {
                 AdsManager.shared.interstitial?.present(fromRootViewController: rootController)
@@ -156,7 +156,7 @@ public class AdsManager: NSObject, GADInterstitialDelegate {
         }
     }
 
-    public func invalidateInterstitialTimer() {
+    open func invalidateInterstitialTimer() {
         adsTimer?.invalidate()
         adsTimer = nil
     }
