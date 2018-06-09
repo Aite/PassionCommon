@@ -1,0 +1,6 @@
+framework module Pods_PassionCommonDemoUITests {
+  umbrella header "Pods-PassionCommonDemoUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

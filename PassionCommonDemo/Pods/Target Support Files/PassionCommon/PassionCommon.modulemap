@@ -1,0 +1,6 @@
+framework module PassionCommon {
+  umbrella header "PassionCommon-umbrella.h"
+
+  export *
+  module * { export * }
+}
